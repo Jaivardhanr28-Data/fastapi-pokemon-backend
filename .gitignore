@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+
+# Database
+*.db
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.cursor/
+.vscode/
