@@ -1,0 +1,73 @@
+/* RESET ROOT BEHAVIOR */
+#root {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+/* APP LAYOUT */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #1f1f1f;
+}
+
+/* SIDEBAR + MAIN */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.app-header {
+  height: 64px;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 16px;
+}
+
+.app-header h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+/* BURGER ICON */
+.burger {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* MAIN CONTENT */
+.app-content {
+  flex: 1;
+  display: flex;
+  padding: 24px;
+  overflow: auto;
+}
+
+/* SAFE CONTENT AREA */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  transition: padding-left 0.3s ease;
+}
+
+.content-wrapper.sidebar-open {
+  padding-left: 240px;
+  /* same as sidebar width */
+}
+
+.content-inner {
+  width: 100%;
+  max-width: 1100px;
+}

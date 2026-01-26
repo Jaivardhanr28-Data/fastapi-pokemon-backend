@@ -1,0 +1,116 @@
+.users-page {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-user-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    font-size: 24px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1f2937;
+}
+
+.users-table th,
+.users-table td {
+    padding: 14px;
+    border: 1px solid #374151;
+    text-align: left;
+}
+
+.users-table th {
+    background: #111827;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* MODAL */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: #111827;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+}
+
+.modal input {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-btn {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.cancel-btn {
+    background: #374151;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.users-msg {
+    padding: 20px;
+}
+
+.users-msg.error {
+    color: red;
+}

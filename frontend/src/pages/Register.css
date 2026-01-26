@@ -1,0 +1,38 @@
+.register-page {
+    max-width: 420px;
+    margin: 40px auto;
+    color: #eaeaea;
+}
+
+.register-page h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.register-form input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.register-form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.error {
+    color: #ef4444;
+}
+
+.success {
+    color: #22c55e;
+}
