@@ -1,4 +1,4 @@
-.register-page {
+.login-page {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,7 +7,7 @@
     padding: 20px;
 }
 
-.register-card {
+.login-card {
     background-color: #1e293b;
     border-radius: 16px;
     padding: 40px;
@@ -17,26 +17,26 @@
 }
 
 /* HEADER */
-.register-header {
+.login-header {
     text-align: center;
     margin-bottom: 32px;
 }
 
-.register-header h2 {
+.login-header h2 {
     margin: 0 0 8px 0;
     font-size: 28px;
     color: #ffffff;
     font-weight: 600;
 }
 
-.register-header p {
+.login-header p {
     margin: 0;
     font-size: 15px;
     color: #94a3b8;
 }
 
 /* FORM */
-.register-form {
+.login-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -91,8 +91,8 @@
     font-size: 18px;
 }
 
-/* REGISTER BUTTON */
-.register-btn {
+/* LOGIN BUTTON */
+.login-btn {
     padding: 13px 24px;
     background-color: #2563eb;
     border: none;
@@ -105,42 +105,42 @@
     margin-top: 8px;
 }
 
-.register-btn:hover:not(:disabled) {
+.login-btn:hover:not(:disabled) {
     background-color: #1d4ed8;
 }
 
-.register-btn:active:not(:disabled) {
+.login-btn:active:not(:disabled) {
     transform: scale(0.98);
 }
 
-.register-btn:disabled {
+.login-btn:disabled {
     background-color: #475569;
     cursor: not-allowed;
     opacity: 0.6;
 }
 
 /* FOOTER */
-.register-footer {
+.login-footer {
     margin-top: 24px;
     text-align: center;
     padding-top: 24px;
     border-top: 1px solid #334155;
 }
 
-.register-footer p {
+.login-footer p {
     margin: 0;
     font-size: 14px;
     color: #94a3b8;
 }
 
-.register-footer a {
+.login-footer a {
     color: #60a5fa;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s;
 }
 
-.register-footer a:hover {
+.login-footer a:hover {
     color: #93c5fd;
     text-decoration: underline;
 }

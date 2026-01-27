@@ -2,188 +2,201 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Users.css";
 
-type User = {
+interface User {
     id: string;
     name: string;
     email: string;
-};
+}
 
-export default function Users() {
-    const navigate = useNavigate();
-
+function Users() {
     const [users, setUsers] = useState<User[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
-    // Edit modal state
-    const [editingUser, setEditingUser] = useState<User | null>(null);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    // Edit form state (UI only)
     const [editName, setEditName] = useState("");
     const [editEmail, setEditEmail] = useState("");
     const [editPassword, setEditPassword] = useState("");
 
-    // Fetch users
-    const loadUsers = async () => {
-        try {
-            setLoading(true);
-            const res = await fetch("http://localhost:8000/users");
-            if (!res.ok) throw new Error("Failed to fetch users");
-            const data = await res.json();
-            setUsers(data);
-        } catch {
-            setError("Could not load users");
-        } finally {
-            setLoading(false);
-        }
-    };
+    const navigate = useNavigate();
 
+    // --------------------------------------------------
+    // Fetch all users (NO AUTH, matches backend)
+    // --------------------------------------------------
     useEffect(() => {
-        loadUsers();
+        fetch("http://localhost:8000/users")
+            .then((res) => res.json())
+            .then((data) => setUsers(data))
+            .catch(() => {
+                alert("Failed to load users");
+            });
     }, []);
 
-    // Delete user
-    const handleDelete = async (user: User) => {
-        const confirm = window.confirm(
-            `Are you sure you want to delete ${user.name}?`
-        );
-        if (!confirm) return;
-
-        try {
-            const res = await fetch(
-                `http://localhost:8000/user?id=${user.id}`,
-                { method: "DELETE" }
-            );
-
-            if (!res.ok) {
-                const err = await res.json();
-                alert(err.detail || "Delete failed");
-                return;
-            }
-
-            await loadUsers();
-        } catch {
-            alert("Delete failed");
-        }
-    };
-
-    // Open edit modal
-    const openEdit = (user: User) => {
-        setEditingUser(user);
+    // --------------------------------------------------
+    // Handlers
+    // --------------------------------------------------
+    const handleEditClick = (user: User) => {
+        setSelectedUser(user);
         setEditName(user.name);
         setEditEmail(user.email);
         setEditPassword("");
+        setShowEditModal(true);
     };
 
-    // Save edit
-    const saveEdit = async () => {
-        if (!editingUser) return;
-
-        try {
-            const res = await fetch(
-                `http://localhost:8000/profile?id=${editingUser.id}`,
-                {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        name: editName,
-                        email: editEmail,
-                        password: editPassword || undefined,
-                    }),
-                }
-            );
-
-            if (!res.ok) {
-                const err = await res.json();
-                alert(err.detail || "Update failed");
-                return;
-            }
-
-            setEditingUser(null);
-            await loadUsers();
-        } catch {
-            alert("Update failed");
-        }
+    const handleSaveEdit = () => {
+        alert("✨ This is a future feature. Admin edit will be enabled later.");
+        setShowEditModal(false);
     };
 
-    if (loading) return <p className="users-msg">Loading users...</p>;
-    if (error) return <p className="users-msg error">{error}</p>;
+    const handleConfirmDelete = () => {
+        alert("✨ This is a future feature. Admin delete will be enabled later.");
+        setShowDeleteModal(false);
+    };
 
+    // --------------------------------------------------
+    // Render
+    // --------------------------------------------------
     return (
         <div className="users-page">
+            {/* HEADER */}
             <div className="users-header">
                 <h2>Pokemon Card Users</h2>
+
                 <button
                     className="add-user-btn"
                     onClick={() => navigate("/users/register")}
+                    title="Register new user"
                 >
                     +
                 </button>
             </div>
 
-            <table className="users-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Pass</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((u) => (
-                        <tr key={u.id}>
-                            <td>{u.name}</td>
-                            <td>{u.email}</td>
-                            <td>{"*".repeat(8)}</td>
-                            <td className="actions">
-                                <button className="edit-btn" onClick={() => openEdit(u)}>
-                                    Edit
-                                </button>
-                                <button
-                                    className="delete-btn"
-                                    onClick={() => handleDelete(u)}
-                                >
-                                    Delete
-                                </button>
-                            </td>
+            {/* TABLE */}
+            <div className="users-table-wrapper">
+                <table className="users-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                        {users.map((user) => (
+                            <tr key={user.id}>
+                                <td>{user.name}</td>
+                                <td>{user.email}</td>
+                                <td>*******</td>
+                                <td className="actions-cell">
+                                    <button
+                                        className="edit-btn"
+                                        onClick={() => handleEditClick(user)}
+                                    >
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        className="delete-btn"
+                                        onClick={() => {
+                                            setSelectedUser(user);
+                                            setShowDeleteModal(true);
+                                        }}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
             {/* EDIT MODAL */}
-            {editingUser && (
-                <div className="modal-backdrop">
-                    <div className="modal">
+            {showEditModal && selectedUser && (
+                <div
+                    className="modal-overlay"
+                    onClick={() => setShowEditModal(false)}
+                >
+                    <div className="modal" onClick={(e) => e.stopPropagation()}>
                         <h3>Edit User</h3>
 
-                        <input
-                            placeholder="Name"
-                            value={editName}
-                            onChange={(e) => setEditName(e.target.value)}
-                        />
+                        <div className="form-group">
+                            <label>Name</label>
+                            <input
+                                type="text"
+                                value={editName}
+                                onChange={(e) => setEditName(e.target.value)}
+                            />
+                        </div>
 
-                        <input
-                            placeholder="Email"
-                            value={editEmail}
-                            onChange={(e) => setEditEmail(e.target.value)}
-                        />
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                value={editEmail}
+                                onChange={(e) => setEditEmail(e.target.value)}
+                            />
+                        </div>
 
-                        <input
-                            placeholder="New Password (optional)"
-                            type="password"
-                            value={editPassword}
-                            onChange={(e) => setEditPassword(e.target.value)}
-                        />
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                value={editPassword}
+                                onChange={(e) => setEditPassword(e.target.value)}
+                                placeholder="New password (optional)"
+                            />
+                        </div>
 
                         <div className="modal-actions">
-                            <button className="save-btn" onClick={saveEdit}>
-                                Save
-                            </button>
                             <button
-                                className="cancel-btn"
-                                onClick={() => setEditingUser(null)}
+                                className="btn-cancel"
+                                onClick={() => setShowEditModal(false)}
                             >
                                 Cancel
+                            </button>
+                            <button className="btn-save" onClick={handleSaveEdit}>
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* DELETE MODAL */}
+            {showDeleteModal && selectedUser && (
+                <div
+                    className="modal-overlay"
+                    onClick={() => setShowDeleteModal(false)}
+                >
+                    <div
+                        className="modal modal-delete"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h3>Delete User</h3>
+
+                        <p className="delete-warning">
+                            Are you sure you want to delete{" "}
+                            <strong>{selectedUser.name}</strong>?
+                        </p>
+
+                        <p className="delete-subtext">
+                            This action cannot be undone.
+                        </p>
+
+                        <div className="modal-actions">
+                            <button
+                                className="btn-cancel"
+                                onClick={() => setShowDeleteModal(false)}
+                            >
+                                Cancel
+                            </button>
+                            <button className="btn-danger" onClick={handleConfirmDelete}>
+                                Confirm Delete
                             </button>
                         </div>
                     </div>
@@ -192,3 +205,5 @@ export default function Users() {
         </div>
     );
 }
+
+export default Users;

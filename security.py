@@ -7,7 +7,6 @@ SECRET_KEY = "SUPER_SECRET_KEY"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
-# 🔥 TEMP FIX: avoid bcrypt (Python 3.14 issue)
 pwd_context = CryptContext(
     schemes=["pbkdf2_sha256"],
     deprecated="auto"

@@ -1,15 +1,39 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
     const navigate = useNavigate();
+
+    // Basic frontend validation
+    const validateForm = () => {
+        if (!email.trim()) {
+            return "Email is required";
+        }
+
+        if (!password.trim()) {
+            return "Password is required";
+        }
+
+        return "";
+    };
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
+
+        const validationError = validateForm();
+        if (validationError) {
+            setError(validationError);
+            return;
+        }
+
+        setIsLoading(true);
 
         try {
             const res = await fetch("http://localhost:8000/login", {
@@ -18,44 +42,69 @@ function Login() {
                 body: JSON.stringify({ email, password }),
             });
 
-            if (!res.ok) {
-                throw new Error("Invalid credentials");
-            }
-
             const data = await res.json();
 
-            // 🔑 STORE AUTH DATA
+            if (!res.ok) {
+                // Use backend message if available
+                throw new Error(data.detail || "Invalid email or password");
+            }
+
+            // Store auth data
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
+            // Redirect to dashboard
             navigate("/dashboard");
         } catch (err: any) {
             setError(err.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="auth-page">
-            <h2>Login</h2>
+        <div className="login-page">
+            <div className="login-card">
+                <div className="login-header">
+                    <h2>Welcome Back</h2>
+                    <p>Login to access your Pokemon Card collection</p>
+                </div>
 
-            <form onSubmit={handleLogin}>
-                <input
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                <form onSubmit={handleLogin} className="login-form">
+                    <div className="form-group">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                        />
+                    </div>
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                        />
+                    </div>
 
-                {error && <p style={{ color: "red" }}>{error}</p>}
+                    {error && <div className="error-message">⚠️ {error}</div>}
 
-                <button type="submit">Login</button>
-            </form>
+                    <button type="submit" className="login-btn" disabled={isLoading}>
+                        {isLoading ? "Logging in..." : "Login"}
+                    </button>
+                </form>
+
+                <div className="login-footer">
+                    <p>
+                        Don’t have an account?{" "}
+                        <a href="/users/register">Register here</a>
+                    </p>
+                </div>
+            </div>
         </div>
     );
 }
