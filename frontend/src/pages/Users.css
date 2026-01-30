@@ -55,8 +55,8 @@
 
 .users-table {
     width: 100%;
-    min-width: 600px;
-    /* Minimum width to prevent ugly compression */
+    min-width: 700px;
+    /* Increased to accommodate new button */
     border-collapse: collapse;
 }
 
@@ -74,15 +74,15 @@
 .users-table th:nth-child(1),
 /* Name */
 .users-table td:nth-child(1) {
-    width: 30%;
-    min-width: 150px;
+    width: 20%;
+    min-width: 120px;
 }
 
 .users-table th:nth-child(2),
 /* Email */
 .users-table td:nth-child(2) {
-    width: 35%;
-    min-width: 180px;
+    width: 25%;
+    min-width: 150px;
     word-break: break-word;
     /* Allow email to wrap if needed */
 }
@@ -90,15 +90,34 @@
 .users-table th:nth-child(3),
 /* Password */
 .users-table td:nth-child(3) {
-    width: 15%;
+    width: 12%;
     min-width: 80px;
 }
 
 .users-table th:nth-child(4),
-/* Actions */
+/* Cards Owned */
 .users-table td:nth-child(4) {
-    width: 20%;
-    min-width: 160px;
+    width: 13%;
+    min-width: 100px;
+}
+
+.users-table th:nth-child(5),
+/* Actions */
+.users-table td:nth-child(5) {
+    width: 30%;
+    min-width: 220px;
+}
+
+/* Cards Badge */
+.cards-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    border-radius: 12px;
+    font-size: 13px;
+    color: #60a5fa;
+    font-weight: 600;
 }
 
 .users-table tbody tr {
@@ -118,13 +137,14 @@
 }
 
 .edit-btn,
-.delete-btn {
+.delete-btn,
+.view-cards-btn {
     border: none;
     color: white;
     padding: 6px 14px;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     white-space: nowrap;
     /* Prevent text wrapping */
     font-size: 14px;
@@ -146,6 +166,19 @@
 
 .delete-btn:hover {
     background-color: #b91c1c;
+}
+
+/* ============================================
+   VIEW CARDS BUTTON (NEW)
+   ============================================ */
+.view-cards-btn {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.view-cards-btn:hover {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
 }
 
 /* MODAL OVERLAY */
@@ -302,10 +335,161 @@
     background-color: #b91c1c;
 }
 
+/* ============================================
+   VIEW CARDS MODAL (NEW)
+   ============================================ */
+.modal-view-cards {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-view-cards h3 {
+    color: #a78bfa;
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cards-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    color: #94a3b8;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(139, 92, 246, 0.2);
+    border-top-color: #8b5cf6;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.no-cards-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    color: #64748b;
+}
+
+.no-cards-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.no-cards-message p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.collection-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.summary-count {
+    color: #a78bfa;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.summary-value {
+    color: #22c55e;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* USER CARDS GRID */
+.user-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.user-card-item {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+.user-card-item:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+.user-card-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.user-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-card-details strong {
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-card-type {
+    color: #94a3b8;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+.user-card-stats {
+    display: flex;
+    gap: 12px;
+    color: #64748b;
+    font-size: 11px;
+}
+
+.user-card-rarity {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.user-card-price {
+    color: #22c55e;
+    font-size: 13px;
+    font-weight: 600;
+}
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     .users-table {
-        min-width: 500px;
+        min-width: 600px;
         /* Smaller min-width on mobile */
     }
 
@@ -318,8 +502,13 @@
     }
 
     .edit-btn,
-    .delete-btn {
+    .delete-btn,
+    .view-cards-btn {
         padding: 5px 10px;
         font-size: 13px;
+    }
+
+    .user-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     }
 }

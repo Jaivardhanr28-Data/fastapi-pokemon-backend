@@ -1,0 +1,230 @@
+/* frontend/src/pages/PokemonCards.css */
+
+.pokemon-cards-page {
+    width: 100%;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #94a3b8;
+}
+
+/* Header */
+.cards-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.cards-header h2 {
+    margin: 0 0 8px 0;
+    font-size: 28px;
+    color: #ffffff;
+}
+
+.collection-status {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.collection-status strong {
+    color: #60a5fa;
+}
+
+.max-reached {
+    color: #fca5a5;
+    font-weight: 600;
+}
+
+.cart-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cart-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* Admin Notice */
+.admin-notice {
+    padding: 12px 16px;
+    background-color: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    border-radius: 8px;
+    margin-bottom: 24px;
+    color: #93c5fd;
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* Pokemon Card */
+.pokemon-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.pokemon-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+.card-image {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 220px;
+}
+
+.card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-name {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.card-type {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    border-radius: 12px;
+    font-size: 13px;
+    color: #60a5fa;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.card-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.stat {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-price {
+    font-size: 24px;
+    color: #10b981;
+    font-weight: 700;
+}
+
+.card-rarity {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+    background-color: #1d4ed8;
+    transform: scale(1.02);
+}
+
+.add-to-cart-btn:disabled {
+    background-color: #475569;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.add-to-cart-btn.owned {
+    background-color: #10b981;
+    cursor: default;
+}
+
+.add-to-cart-btn.owned:hover {
+    background-color: #10b981;
+    transform: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+    }
+
+    .cards-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .card-image {
+        height: 180px;
+    }
+}

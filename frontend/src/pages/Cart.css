@@ -1,0 +1,230 @@
+/* frontend/src/pages/Cart.css */
+
+.cart-page {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.cart-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #ffffff;
+}
+
+.back-btn {
+    background-color: #334155;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #475569;
+}
+
+/* Empty Cart */
+.empty-cart {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #1e293b;
+    border-radius: 16px;
+}
+
+.empty-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.empty-cart h3 {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.empty-cart p {
+    margin: 0 0 24px 0;
+    color: #94a3b8;
+}
+
+.browse-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.browse-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* Cart Items */
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #1e293b;
+    border-radius: 12px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-details h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.cart-item-price {
+    font-size: 18px;
+    color: #10b981;
+    font-weight: 700;
+}
+
+.remove-btn {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.remove-btn:hover {
+    background-color: #b91c1c;
+}
+
+/* Cart Summary */
+.cart-summary {
+    background-color: #1e293b;
+    padding: 24px;
+    border-radius: 12px;
+    border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+}
+
+.summary-row.total {
+    border-bottom: none;
+    padding-top: 16px;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.cart-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.clear-btn {
+    flex: 1;
+    background-color: #475569;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.clear-btn:hover:not(:disabled) {
+    background-color: #64748b;
+}
+
+.purchase-btn {
+    flex: 2;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.purchase-btn:hover:not(:disabled) {
+    background-color: #059669;
+}
+
+.clear-btn:disabled,
+.purchase-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.cart-note {
+    margin-top: 16px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cart-item-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+    }
+}

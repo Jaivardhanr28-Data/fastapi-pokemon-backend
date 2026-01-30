@@ -19,7 +19,6 @@
   transition: margin-left 0.3s ease;
   background-color: #1f1f1f;
   min-width: 0;
-  /* IMPORTANT: Allows flex item to shrink below content size */
 }
 
 .app-main.sidebar-pushed {
@@ -38,7 +37,6 @@
   position: relative;
   z-index: 100;
   flex-shrink: 0;
-  /* Prevent header from shrinking */
 }
 
 .app-header-left {
@@ -50,6 +48,7 @@
 .app-header h1 {
   font-size: 20px;
   margin: 0;
+  color: white;
 }
 
 .burger {
@@ -92,10 +91,8 @@
   padding: 24px;
   overflow-y: auto;
   overflow-x: hidden;
-  /* Prevent horizontal scroll on main container */
   background-color: #1f1f1f;
   min-width: 0;
-  /* IMPORTANT: Allows proper flexbox shrinking */
 }
 
 .content-wrapper {
@@ -103,41 +100,34 @@
   justify-content: center;
   width: 100%;
   min-width: 0;
-  /* IMPORTANT */
 }
 
 .content-inner {
   width: 100%;
   max-width: 1100px;
   min-width: 0;
-  /* IMPORTANT: Allows content to shrink */
 }
 
 /* Responsive adjustments when sidebar is open */
 .app-main.sidebar-pushed .content-inner {
   max-width: 900px;
-  /* Reduce max-width when sidebar is open */
 }
 
 /* Ensure content doesn't get squished on smaller screens */
 @media (max-width: 1400px) {
   .content-inner {
     max-width: 900px;
-    /* Smaller max-width for medium screens */
   }
 
   .app-main.sidebar-pushed .content-inner {
     max-width: 750px;
-    /* Even smaller when sidebar is open */
   }
 }
 
 @media (max-width: 1024px) {
   .content-inner {
     max-width: 100%;
-    /* Full width on tablets */
     padding: 0 16px;
-    /* Add horizontal padding */
   }
 
   .app-main.sidebar-pushed .content-inner {
@@ -148,7 +138,6 @@
 @media (max-width: 768px) {
   .app-main.sidebar-pushed {
     margin-left: 0;
-    /* No margin on mobile */
   }
 
   .content-inner {
@@ -158,6 +147,5 @@
 
   .app-content {
     padding: 16px;
-    /* Reduce padding on mobile */
   }
 }

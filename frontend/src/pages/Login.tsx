@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./login.css";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -10,7 +10,6 @@ function Login() {
 
     const navigate = useNavigate();
 
-    // Basic frontend validation
     const validateForm = () => {
         if (!email.trim()) {
             return "Email is required";
@@ -45,7 +44,6 @@ function Login() {
             const data = await res.json();
 
             if (!res.ok) {
-                // Use backend message if available
                 throw new Error(data.detail || "Invalid email or password");
             }
 
@@ -53,8 +51,16 @@ function Login() {
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
-            // Redirect to dashboard
-            navigate("/dashboard");
+            // Reset sidebar to closed on fresh login
+            localStorage.setItem("sidebarOpen", "false");
+
+            // ✨ TRIGGER EVENT SO APP.TSX KNOWS USER LOGGED IN
+            window.dispatchEvent(new Event('userLoggedIn'));
+
+            // Small delay to ensure state updates
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 100);
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -100,7 +106,7 @@ function Login() {
 
                 <div className="login-footer">
                     <p>
-                        Don’t have an account?{" "}
+                        Don't have an account?{" "}
                         <a href="/users/register">Register here</a>
                     </p>
                 </div>
