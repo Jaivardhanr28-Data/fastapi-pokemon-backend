@@ -1,5 +1,4 @@
 c
-/* frontend/src/pages/Dashboard.css */
 
 .dashboard-page {
     width: 100%;
@@ -12,7 +11,6 @@ c
     color: #94a3b8;
 }
 
-/* Welcome Section */
 .welcome-section {
     text-align: center;
     margin-bottom: 48px;
@@ -31,7 +29,6 @@ c
     color: #94a3b8;
 }
 
-/* Dashboard Grid */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -95,7 +92,6 @@ c
     transform: scale(0.98);
 }
 
-/* Instructions Section */
 .instructions-section {
     background-color: #1e293b;
     padding: 32px;
@@ -151,7 +147,6 @@ c
     color: #60a5fa;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .welcome-section h1 {
         font-size: 28px;

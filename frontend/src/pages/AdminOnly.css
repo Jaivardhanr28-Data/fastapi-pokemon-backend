@@ -1,69 +1,42 @@
-/* frontend/src/pages/AdminOnly.css */
-
-/* This is the main container for the admin-only page. */
 .admin-only-page {
-    /* Set the display to flex to create a flex container. */
     display: flex;
-    /* Center the items vertically and horizontally. */
     align-items: center;
     justify-content: center;
-    /* Set the minimum height to the viewport height minus the header height. */
     min-height: calc(100vh - 112px);
-    /* Add some padding to the container. */
     padding: 20px;
 }
 
-/* This is the container for the blocked card. */
 .blocked-card {
-    /* Set the background color to a linear gradient. */
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    /* Add some padding to the container. */
     padding: 48px;
-    /* Set the border radius to 20px. */
     border-radius: 20px;
-    /* Set the maximum width to 600px. */
     max-width: 600px;
-    /* Center the text inside the container. */
     text-align: center;
-    /* Add a border to the container. */
     border: 3px solid rgba(239, 68, 68, 0.3);
-    /* Add a box shadow to the container. */
     box-shadow: 0 20px 60px rgba(239, 68, 68, 0.2);
 }
 
-/* This is the lock icon. */
 .lock-icon {
-    /* Set the font size to 80px. */
     font-size: 80px;
-    /* Add some margin to the top of the icon. */
     margin-bottom: 24px;
-    /* Add an animation to the icon. */
     animation: pulse 2s ease-in-out infinite;
 }
 
-/* This is the keyframes for the pulse animation. */
 @keyframes pulse {
 
-    /* At the start and end of the animation, the icon should be at its original size. */
     0%,
     100% {
         transform: scale(1);
     }
 
-    /* At the midpoint of the animation, the icon should be 10% larger. */
     50% {
         transform: scale(1.1);
     }
 }
 
-/* This is the heading inside the blocked card. */
 .blocked-card h2 {
-    /* Set the margin to 0 at the top and bottom. */
     margin: 0 0 16px 0;
-    /* Set the font size to 32px. */
     font-size: 32px;
-    /* Set the color to #ef4444. */
     color: #ef4444;
-    /* Set the font weight to 700. */
     font-weight: 700;
 }

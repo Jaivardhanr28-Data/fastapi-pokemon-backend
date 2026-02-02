@@ -3,7 +3,6 @@
     align-items: center;
     justify-content: center;
     min-height: calc(100vh - 112px);
-    /* Account for header + padding */
     padding: 20px;
 }
 
@@ -16,7 +15,6 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* HEADER */
 .login-header {
     text-align: center;
     margin-bottom: 32px;
@@ -35,7 +33,6 @@
     color: #94a3b8;
 }
 
-/* FORM */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -74,7 +71,6 @@
     color: #64748b;
 }
 
-/* ERROR MESSAGE */
 .error-message {
     display: flex;
     align-items: center;
@@ -91,7 +87,6 @@
     font-size: 18px;
 }
 
-/* LOGIN BUTTON */
 .login-btn {
     padding: 13px 24px;
     background-color: #2563eb;
@@ -119,7 +114,6 @@
     opacity: 0.6;
 }
 
-/* FOOTER */
 .login-footer {
     margin-top: 24px;
     text-align: center;

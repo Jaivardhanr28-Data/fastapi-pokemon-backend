@@ -1,25 +1,20 @@
 .dashboard-center {
-    /* This is the main container for the dashboard content. */
     height: 100%;
     width: 100%;
-    /* The container takes up the full height and width of its parent element. */
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* The container uses flexbox to center its content both vertically and horizontally. */
 
     text-align: center;
     color: #eaeaea;
-    /* The text inside the container is centered and has a light gray color. */
 
 }
 
 .dashboard-center h2 {
     font-size: 42px;
     margin-bottom: 14px;
-    /* The heading inside the container has a font size of 42 pixels and a margin of 14 pixels at the bottom. */
 
 }
 
@@ -27,11 +22,9 @@
     font-size: 18px;
     opacity: 0.85;
     max-width: 520px;
-    /* The paragraph inside the container has a font size of 18 pixels, an opacity of 0.85, and a maximum width of 520 pixels. */
 
 }
 
 .dashboard-hint {
     margin-top: 12px;
     opacity: 0.75;
-    /* The hint inside the container has a margin of 12 pixels at the top and an opacity of 0.75. */

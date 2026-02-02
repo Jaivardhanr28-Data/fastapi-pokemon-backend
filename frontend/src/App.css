@@ -25,7 +25,6 @@
   margin-left: 240px;
 }
 
-/* HEADER */
 .app-header {
   height: 64px;
   background-color: #000;
@@ -69,7 +68,6 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* LOGOUT */
 .logout-btn {
   background-color: #dc2626;
   border: none;
@@ -85,7 +83,6 @@
   background-color: #b91c1c;
 }
 
-/* CONTENT */
 .app-content {
   flex: 1;
   padding: 24px;
@@ -108,12 +105,10 @@
   min-width: 0;
 }
 
-/* Responsive adjustments when sidebar is open */
 .app-main.sidebar-pushed .content-inner {
   max-width: 900px;
 }
 
-/* Ensure content doesn't get squished on smaller screens */
 @media (max-width: 1400px) {
   .content-inner {
     max-width: 900px;

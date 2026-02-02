@@ -47,17 +47,13 @@ function Login() {
                 throw new Error(data.detail || "Invalid email or password");
             }
 
-            // Store auth data
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("user", JSON.stringify(data.user));
 
-            // Reset sidebar to closed on fresh login
             localStorage.setItem("sidebarOpen", "false");
 
-            // ✨ TRIGGER EVENT SO APP.TSX KNOWS USER LOGGED IN
             window.dispatchEvent(new Event('userLoggedIn'));
 
-            // Small delay to ensure state updates
             setTimeout(() => {
                 navigate("/dashboard");
             }, 100);
