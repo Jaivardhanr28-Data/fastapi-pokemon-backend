@@ -52,11 +52,21 @@ function Users() {
     }, []);
 
     useEffect(() => {
-        fetch("http://localhost:8000/users")
-            .then((res) => res.json())
+        const token = localStorage.getItem("token");
+        fetch("http://localhost:8000/users", {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to fetch users");
+                }
+                return res.json();
+            })
             .then((data) => setUsers(data))
-            .catch(() => {
-                alert("Failed to load users");
+            .catch((err) => {
+                console.error("Failed to load users:", err);
             });
     }, []);
 

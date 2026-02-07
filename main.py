@@ -102,6 +102,24 @@ class CartItemResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class PokemonCardCreate(BaseModel):
+    name: str
+    pokemon_type: str
+    hp: int
+    attack: str
+    price: float
+    rarity: str
+    pokedex_number: int
+
+class PokemonCardUpdate(BaseModel):
+    name: str | None = None
+    pokemon_type: str | None = None
+    hp: int | None = None
+    attack: str | None = None
+    price: float | None = None
+    rarity: str | None = None
+    pokedex_number: int | None = None
+
 @app.get("/")
 def health_check():
     return {"message": "Pokemon Cards API is running"}
@@ -143,7 +161,10 @@ def login_user(login: LoginRequest, db: Session = Depends(get_db)):
     }
 
 @app.get("/users")
-def get_all_users(db: Session = Depends(get_db)):
+def get_all_users(
+    db: Session = Depends(get_db),
+    _: UserModel = Depends(admin_required)
+):
     users = db.query(UserModel).all()
     result = []
 
@@ -224,6 +245,98 @@ def admin_get_user_cards(
             })
 
     return result
+
+@app.post("/admin/cards", status_code=status.HTTP_201_CREATED)
+def admin_create_card(
+    card: PokemonCardCreate,
+    db: Session = Depends(get_db),
+    _: UserModel = Depends(admin_required)
+):
+    existing = db.query(PokemonCard).filter(
+        PokemonCard.pokedex_number == card.pokedex_number
+    ).first()
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Card with Pokedex #{card.pokedex_number} already exists"
+        )
+
+    image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{card.pokedex_number}.png"
+
+    new_card = PokemonCard(
+        name=card.name,
+        pokemon_type=card.pokemon_type,
+        hp=card.hp,
+        attack=card.attack,
+        price=card.price,
+        rarity=card.rarity,
+        image_url=image_url,
+        pokedex_number=card.pokedex_number
+    )
+
+    db.add(new_card)
+    db.commit()
+    db.refresh(new_card)
+
+    return {"message": "Card created successfully", "card_id": new_card.id}
+
+@app.put("/admin/cards/{card_id}")
+def admin_update_card(
+    card_id: str,
+    data: PokemonCardUpdate,
+    db: Session = Depends(get_db),
+    _: UserModel = Depends(admin_required)
+):
+    card = db.query(PokemonCard).filter(PokemonCard.id == card_id).first()
+    if not card:
+        raise HTTPException(status_code=404, detail="Card not found")
+
+    if data.pokedex_number is not None and data.pokedex_number != card.pokedex_number:
+        existing = db.query(PokemonCard).filter(
+            PokemonCard.pokedex_number == data.pokedex_number
+        ).first()
+        if existing:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Card with Pokedex #{data.pokedex_number} already exists"
+            )
+
+    if data.name is not None:
+        card.name = data.name
+    if data.pokemon_type is not None:
+        card.pokemon_type = data.pokemon_type
+    if data.hp is not None:
+        card.hp = data.hp
+    if data.attack is not None:
+        card.attack = data.attack
+    if data.price is not None:
+        card.price = data.price
+    if data.rarity is not None:
+        card.rarity = data.rarity
+    if data.pokedex_number is not None:
+        card.pokedex_number = data.pokedex_number
+        card.image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{data.pokedex_number}.png"
+
+    db.commit()
+    return {"message": "Card updated successfully"}
+
+@app.delete("/admin/cards/{card_id}")
+def admin_delete_card(
+    card_id: str,
+    db: Session = Depends(get_db),
+    _: UserModel = Depends(admin_required)
+):
+    card = db.query(PokemonCard).filter(PokemonCard.id == card_id).first()
+    if not card:
+        raise HTTPException(status_code=404, detail="Card not found")
+
+    db.query(UserCardOwnership).filter(UserCardOwnership.card_id == card_id).delete()
+    db.query(CartItem).filter(CartItem.card_id == card_id).delete()
+
+    db.delete(card)
+    db.commit()
+
+    return {"message": "Card deleted successfully"}
 
 @app.get("/api/cards")
 def get_all_cards(
